@@ -211,18 +211,17 @@
           "name": "CustomScript",
           "type": "extensions",
           "location": "[resourceGroup().location]",
-          "apiVersion": "2015-05-01-preview",
+          "apiVersion": "2015-06-15",
           "dependsOn": [
             "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
           ],
           "properties": {
-            "publisher": "Microsoft.Compute",
-            "type": "CustomScriptExtension",
-            "typeHandlerVersion": "1.4",
+            "publisher": "Microsoft.Azure.Extensions",
+            "type": "CustomScript",
+            "typeHandlerVersion": "2.0",
+            "autoUpgradeMinorVersion": true,
             "settings": {
-              "fileUris": [
-                "[concat(parameters('_artifactsLocation'),'/installvstsagent.ps1')]"
-              ],
+              "fileUris": ["https://raw.githubusercontent.com/mariuszdotnet/vsts-hosted-agents/master/installvstsagent.ps1"],
               "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -Command .\\installvstsagent.ps1 -vstsAccount ', parameters('vstsAccount'), ' -personalAccessToken ', parameters('personalAccessToken'), ' -AgentName ', parameters('vmName'), ' -PoolName ', parameters('poolName'))]"
             }
           }
