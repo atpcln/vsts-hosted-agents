@@ -216,13 +216,17 @@
             "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
           ],
           "properties": {
-            "publisher": "Microsoft.Azure.Extensions",
-            "type": "CustomScript",
-            "typeHandlerVersion": "2.0",
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.8",
             "autoUpgradeMinorVersion": true,
             "settings": {
-              "fileUris": ["https://raw.githubusercontent.com/mariuszdotnet/vsts-hosted-agents/master/installvstsagent.ps1"],
-              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -Command .\\installvstsagent.ps1 -vstsAccount ', parameters('vstsAccount'), ' -personalAccessToken ', parameters('personalAccessToken'), ' -AgentName ', parameters('vmName'), ' -PoolName ', parameters('poolName'))]"
+              "fileUris": [
+                "https://raw.githubusercontent.com/mariuszdotnet/vsts-hosted-agents/master/installvstsagent.ps1"
+                ]
+            },
+            "protectedSettings": {
+                "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -Command .\\installvstsagent.ps1 -vstsAccount ', parameters('vstsAccount'), ' -personalAccessToken ', parameters('personalAccessToken'), ' -AgentName ', parameters('vmName'), ' -PoolName ', parameters('poolName'))]"
             }
           }
         }
