@@ -40,7 +40,7 @@
     },
     "vmVisualStudioVersion": {
       "type": "string",
-      "defaultValue": "VS-2015-Comm-VSU3-AzureSDK-29-WS2012R2",
+      "defaultValue": "VS-2017-Comm-v152-WS2016",
       "metadata": {
         "description": "Which version of Visual Studio you would like to deploy"
       }
