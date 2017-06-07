@@ -10,7 +10,7 @@ $subnetName = 'Subnet-1'
 # Create the NSG Rules to be added to the NSG Group (Allow RDP)
 $nsgRule1 = New-AzureRmNetworkSecurityRuleConfig -Name rdp-rule -Description "Allow RDP" -Access Allow -Protocol Tcp -Direction Inbound -Priority 100 `
 -SourceAddressPrefix Internet -SourcePortRange * `
--DestinationAddressPrefix * -DestinationPortRange 3
+-DestinationAddressPrefix * -DestinationPortRange 3389
 
 # Create the Network Security Group and associate the rule
 $nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName $resourceGroupName -Location $resourceGroupLocation -Name "vstsPrivateAgent-NSG" -SecurityRules $nsgRule1
