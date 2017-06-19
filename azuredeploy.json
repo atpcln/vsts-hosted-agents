@@ -79,7 +79,6 @@
       }
     }
   },
-
   "variables": {
     "storageAccountName": "[concat(uniquestring(resourceGroup().id),'storage')]",
     "vmImagePublisher": "MicrosoftVisualStudio",
@@ -90,8 +89,8 @@
     "vmStorageAccountContainerName": "vhds",
     "vmNicName": "[concat(parameters('vmName'), 'NetworkInterface')]",
     "storageApi": "2017-06-01",
-    "networkApi": "2015-05-01-preview",
-    "computeApi": "2015-05-01-preview",
+    "networkApi": "2017-03-01",
+    "computeApi": "2017-03-30",
     "extensionsApi": "2015-06-15"
   },
   "resources": [
