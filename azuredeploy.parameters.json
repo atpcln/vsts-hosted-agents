@@ -19,6 +19,15 @@
     },
     "poolName": {
       "value": "YourVSTSAgentPoolName"
+    },
+    "existingVirtualNetworkName": {
+      "value": "YourExistingVnetName"
+    },
+    "existingSubnetName": {
+      "value": "YourExistingSubnetName"
+    },
+    "existingVirtualNetworkResourceGroup": {
+      "value": "YoueExistingVirtualNetworkResourceGroupName"
     }
   }
 }
