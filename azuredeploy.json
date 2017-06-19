@@ -45,12 +45,6 @@
         "description": "Which version of Visual Studio you would like to deploy"
       }
     },
-    "vmIPPublicDnsName": {
-      "type": "string",
-      "metadata": {
-        "description": "Globally unique name for per region for the public IP address. For instance, myVMuniqueIP.westus.cloudapp.azure.com. It must conform to the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$."
-      }
-    },
     "vstsAccount": {
       "type": "string",
       "metadata": {
@@ -231,22 +225,6 @@
           }
         }
       ]
-    },
-    {
-      "name": "[variables('vmIP01Name')]",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "location": "[resourceGroup().location]",
-      "apiVersion": "2015-05-01-preview",
-      "dependsOn": [ ],
-      "tags": {
-        "displayName": "VMIP01"
-      },
-      "properties": {
-        "publicIPAllocationMethod": "Dynamic",
-        "dnsSettings": {
-          "domainNameLabel": "[parameters('vmIPPublicDnsName')]"
-        }
-      }
     }
   ],
   "outputs": {
