@@ -24,7 +24,7 @@
       "type": "string",
       "defaultValue": "Standard_LRS",
       "metadata": {
-        "description": "Which type of storage you want to use"
+        "description": "Which type of storage you want to use for the OS Disk"
       }
     },
     "vmName": {
@@ -80,31 +80,17 @@
     }
   },
   "variables": {
-    "storageAccountName": "[concat(uniquestring(resourceGroup().id),'storage')]",
     "vmImagePublisher": "MicrosoftVisualStudio",
     "vmImageOffer": "VisualStudio",
     "vmOSDiskName": "VMOSDisk",
     "vnetID": "[resourceId(parameters('existingVirtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('existingVirtualNetworkName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',parameters('existingSubnetName'))]",
-    "vmStorageAccountContainerName": "vhds",
     "vmNicName": "[concat(parameters('vmName'), 'NetworkInterface')]",
-    "storageApi": "2017-06-01",
     "networkApi": "2017-03-01",
     "computeApi": "2017-03-30",
     "extensionsApi": "2015-06-15"
   },
   "resources": [
-    {
-      "name": "[variables('storageAccountName')]",
-      "type": "Microsoft.Storage/storageAccounts",
-      "location": "[resourceGroup().location]",
-      "apiVersion": "[variables('storageApi')]",
-      "sku": {
-        "name": "Standard_LRS",
-        "tier": "[parameters('storageType')]"
-      },
-      "kind": "Storage"
-    },
     {
       "name": "[variables('vmNicName')]",
       "type": "Microsoft.Network/networkInterfaces",
@@ -130,7 +116,6 @@
       "location": "[resourceGroup().location]",
       "apiVersion": "[variables('computeApi')]",
       "dependsOn": [
-        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
         "[concat('Microsoft.Network/networkInterfaces/', variables('vmNicName'))]"
       ],
       "properties": {
@@ -150,12 +135,12 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "VMOSDisk",
-            "vhd": {
-              "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob, variables('vmStorageAccountContainerName'), '/', variables('vmOSDiskName'), '.vhd')]"
-            },
             "caching": "ReadWrite",
-            "createOption": "FromImage"
+            "createOption": "FromImage",
+            "name": "[variables('vmOSDiskName')]",
+            "managedDisk": {
+              "storageAccountType": "[parameters('storageType')]"
+              }
           }
         },
         "networkProfile": {
